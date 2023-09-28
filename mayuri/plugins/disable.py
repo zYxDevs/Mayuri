@@ -53,7 +53,7 @@ async def cmd_disabled(c,m):
 	text = await c.tl(chat_id, 'disabled_list')
 	if check and "disabled_list" in check:
 		for cmd in check["disabled_list"]:
-			text = text+" - <code>{}</code>\n".format(cmd)
+			text = f"{text} - <code>{cmd}</code>\n"
 		return await m.reply_text(text,disable_web_page_preview=True)
 	await m.reply_text(await c.tl(chat_id, 'no_cmd_disabled'))
 
@@ -62,5 +62,5 @@ async def disableable(c,m):
 	chat_id = m.chat.id
 	text = await c.tl(chat_id, "can_disabled")
 	for cmd in DISABLEABLE:
-		text = text+" - <code>{}</code>\n".format(cmd)
+		text = f"{text} - <code>{cmd}</code>\n"
 	await m.reply_text(text,disable_web_page_preview=True)

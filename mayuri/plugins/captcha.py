@@ -51,9 +51,7 @@ async def gen_button(verify_id, answer):
 					'🐊', '🦕', '🐬', '💋', '🦎', '🦈', '🦷', '🦖', '🐠', '🐟','💀', '🎃', '👮', '⛑️', '🪢', '🧶',
 					'🧵', '🪡', '🧥', '🥼', '🥻', '🎩', '👑', '🎒', '🙊', '🐗', '🦋', '🦐', '🐀', '🎻', '🦔', '🦦', 
 					'🦫', '🦡', '🦨', '🐇']
-	all_emoji = []
-	for emoji in answer:
-		all_emoji.append(emoji)
+	all_emoji = list(answer)
 	while True:
 		emo = random.choice(_emojis)
 		if emo not in all_emoji:
@@ -134,8 +132,7 @@ async def check_respond(c, q):
 	db = c.db['captcha_list']
 	m = q.message
 	user_id = q.from_user.id
-	regen = re.match("(_captcha_regen_)",q.data)
-	if regen:
+	if regen := re.match("(_captcha_regen_)", q.data):
 		verify_id = q.data[15:]
 		check = await db.find_one({'verify_id': verify_id})
 		if check:
@@ -155,15 +152,14 @@ async def check_respond(c, q):
 		right = check['right']
 		wrong = check['wrong']
 		msg_id = check['msg_id']
+		reply_markup = m.reply_markup
 		if answer in check['answer']:
 			right = right+1
-			reply_markup = m.reply_markup
 			await make_markup(reply_markup.inline_keyboard, answer, "✅")
 			await m.edit_reply_markup(reply_markup=reply_markup)
 			await db.update_one({'verify_id': verify_id},{"$set": {'right': right}})
 		else:
 			wrong = wrong+1
-			reply_markup = m.reply_markup
 			await make_markup(reply_markup.inline_keyboard, answer, "❌")
 			await m.edit_reply_markup(reply_markup=reply_markup)
 			await db.update_one({'verify_id': verify_id},{"$set": {'wrong': wrong}})
@@ -193,22 +189,19 @@ async def check_respond(c, q):
 						text = welcome_set['text']
 					text, buttons = parse_button(text)
 					buttons = build_keyboard(buttons)
-					if buttons:
-						buttons = InlineKeyboardButton(buttons)
-					else:
-						buttons = None
+					buttons = InlineKeyboardButton(buttons) if buttons else None
 					username = q.from_user.username
 					if username:
-						username = "@{}".format(username)
+						username = f"@{username}"
 					chat = await c.get_chat(check['chat_id'])
 					welcome_text = (text).format(
 						chatname=chat.title,
 						first=q.from_user.first_name,
 						last=q.from_user.last_name,
-						fullname="{} {}".format(q.from_user.first_name, q.from_user.last_name),
+						fullname=f"{q.from_user.first_name} {q.from_user.last_name}",
 						id=q.from_user.id,
 						username=username,
-						mention=q.from_user.mention
+						mention=q.from_user.mention,
 					)
 					if welcome_set['media']:
 						return await msg.edit_caption(caption=welcome_text, reply_markup=buttons)
@@ -252,23 +245,20 @@ async def tunstile_watcher(c,m):
 					text = welcome_set['text']
 				text, buttons = parse_button(text)
 				buttons = build_keyboard(buttons)
-				if buttons:
-					buttons = InlineKeyboardButton(buttons)
-				else:
-					buttons = None
+				buttons = InlineKeyboardButton(buttons) if buttons else None
 				user = await c.get_users(user_id)
 				username = user.username
 				if username:
-					username = "@{}".format(username)
+					username = f"@{username}"
 				chat = await c.get_chat(check['chat_id'])
 				welcome_text = (text).format(
 					chatname=chat.title,
 					first=user.first_name,
 					last=user.last_name,
-					fullname="{} {}".format(user.first_name, user.last_name),
+					fullname=f"{user.first_name} {user.last_name}",
 					id=user.id,
 					username=username,
-					mention=user.mention
+					mention=user.mention,
 				)
 				if welcome_set['media']:
 					return await msg.edit_caption(caption=welcome_text, reply_markup=buttons)

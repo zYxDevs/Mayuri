@@ -42,22 +42,19 @@ async def set_welcome(c,m):
 	else:
 		if m.photo:
 			text = m.caption.split(None,1)
-			text = text[1]
 			media = m.photo.file_id
 			media_type = 0
 		elif m.video:
 			text = m.caption.split(None,1)
-			text = text[1]
 			media = m.video.file_id
 			media_type = 1
 		elif m.animation:
 			text = m.caption.split(None,1)
-			text = text[1]
 			media = m.animation.file_id
 			media_type = 2
 		else:
 			text = m.text.split(None,1)
-			text = text[1]
+		text = text[1]
 	check = await db.find_one({'chat_id': chat_id})
 	if check:
 		enable = check['enable']
@@ -67,7 +64,7 @@ async def set_welcome(c,m):
 		verify_text = check['verify_text']
 		captcha_timeout = check['captcha_timeout']
 		if m.chat.is_forum:
-			if (check and check['thread_id'] == 1):
+			if thread_id == 1:
 				thread_id = m.message_thread_id
 			elif not m.message_thread_id:
 				thread_id = 1
@@ -84,10 +81,7 @@ async def set_thread(c,m):
 	check = await db.find_one({'chat_id': chat_id})
 	if not check:
 		return await m.reply_text(await c.tl(chat_id, "welcome_not_set"))
-	if m.message_thread_id:
-		thread_id = m.message_thread_id
-	else:
-		thread_id = 1
+	thread_id = m.message_thread_id if m.message_thread_id else 1
 	await db.update_one({'chat_id': chat_id}, {"$set": {'thread_id': thread_id}})
 	await m.reply_text(await c.tl(chat_id, "thread_id_set"))
 
@@ -124,10 +118,7 @@ async def welcome(c,m):
 			text = check['text']
 		text, button = parse_button(text)
 		button = build_keyboard(button)
-		if button:
-			button = InlineKeyboardMarkup(button)
-		else:
-			button = None
+		button = InlineKeyboardMarkup(button) if button else None
 		await m.reply_text(welc_settings)
 		if media:
 			if media_type == 0:

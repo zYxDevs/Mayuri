@@ -155,11 +155,8 @@ class Mayuri(Client):
 	async def tl(self, chat_id, string):
 		db = self.db["chat_settings"]
 		check = await db.find_one({'chat_id': chat_id})
-		if check and "lang" in check:
-			lang = check["lang"]
-		else:
-			lang = "id"
-		t = importlib.import_module("mayuri.lang."+lang)
+		lang = check["lang"] if check and "lang" in check else "id"
+		t = importlib.import_module(f"mayuri.lang.{lang}")
 		if string in t.text:
 			return t.text[string]
 		return (t.text['translation_not_found']).format(string)
@@ -167,25 +164,19 @@ class Mayuri(Client):
 	async def check_admin(self, chat_id, user_id):
 		db = self.db["admin_list"]
 		check = await db.find_one({"chat_id": chat_id})
-		if check and user_id in check["list"]:
-			return True
-		return False
+		return bool(check and user_id in check["list"])
 
 	async def check_approved(self, chat_id, user_id):
 		db = self.db["chat_settings"]
 		check = await db.find_one({"chat_id": chat_id})
-		if check and "approved" in check and user_id in check["approved"]:
-			return True
-		return False
+		return bool(check and "approved" in check and user_id in check["approved"])
 
 	async def check_sudo(self, user_id):
 		db = self.db["bot_settings"]
 		check = await db.find_one({'name': 'sudo_list'})
 		if user_id == config['bot']['OWNER']:
 			return True
-		if check and user_id in check["list"]:
-			return True
-		return False
+		return bool(check and user_id in check["list"])
 
 	async def start_scheduler(self):
 		self.log.info("---[Starting scheduler...]---")
@@ -289,8 +280,7 @@ class Mayuri(Client):
 		public_key = PublicKey(self.config["backup"]["NACL_PUBLIC_KEY"].encode("utf-8"), Base64Encoder())
 		sealed_box = SealedBox(public_key)
 		encrypted = sealed_box.encrypt(bytes(text, "utf-8"))
-		encrypted_str = b64encode(encrypted).decode('utf-8')
-		return encrypted_str
+		return b64encode(encrypted).decode('utf-8')
 
 	async def backup_now(self):
 		await backup(self)

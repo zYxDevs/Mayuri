@@ -19,10 +19,10 @@ async def addblsticker(c,m):
 	mode_list = {'delete': 0,'mute': 1, 'kick': 2,'ban': 3}
 	duration = ""
 	reason = ""
+	text = m.text
 	if m.reply_to_message:
 		sticker = m.reply_to_message.sticker
 		stickerid = sticker.file_unique_id
-		text = m.text
 		text = text.split(None, 1)
 		if len(text) > 1:
 			extracted = split_quotes(text[1])
@@ -43,7 +43,6 @@ async def addblsticker(c,m):
 		else:
 			mode_raw = "delete"
 	else:
-		text = m.text
 		text = text.split(None, 1)
 		stickerid = text[1]
 		extracted = split_quotes(stickerid)
@@ -68,7 +67,7 @@ async def addblsticker(c,m):
 					mode_raw = extracted[1].lower()
 		else:
 			mode_raw = text[2]
-	if mode_raw == 'delete' or mode_raw == 'kick':
+	if mode_raw in ['delete', 'kick']:
 		duration = ""
 
 	mode = mode_list[mode_raw]
@@ -108,12 +107,12 @@ async def cmd_blsticker(c,m):
 	chat_id = m.chat.id
 	list_bl = db.find({'chat_id': chat_id})
 	delete = []
-	mute = []
 	kick = []
-	ban = []
-	mute_duration = []
-	ban_duration = []
 	if list_bl:
+		mute = []
+		ban = []
+		mute_duration = []
+		ban_duration = []
 		async for bl in list_bl:
 			if bl['mode'] == 0:
 				delete.append(bl['stickerid'])
@@ -126,32 +125,30 @@ async def cmd_blsticker(c,m):
 				ban.append(bl['stickerid'])
 				ban_duration.append(bl['duration'])
 		text = await c.tl(chat_id, 'blsticker_list')
-		if len(delete) > 0:
+		if delete:
 			text = text+"\nDelete :\n"
 			for x in delete:
-				text = text+" - <code>{}</code>\n".format(x)
-		if len(mute) > 0:
+				text = f"{text} - <code>{x}</code>\n"
+		if mute:
 			text = text+"\nMute :\n"
-			i = 0
-			for x in mute:
-				if mute_duration[i]:
-					text = text+" - <code>{}</code> ({})\n".format(x,mute_duration[i])
-				else:
-					text = text+" - <code>{}</code>\n".format(x)
-				i += 1
-		if len(kick) > 0:
+			for i, x in enumerate(mute):
+				text = (
+					f"{text} - <code>{x}</code> ({mute_duration[i]})\n"
+					if mute_duration[i]
+					else f"{text} - <code>{x}</code>\n"
+				)
+		if kick:
 			text = text+"\nKick :\n"
 			for x in kick:
-				text = text+" - <code>{}</code>\n".format(x)
-		if len(ban) > 0:
+				text = f"{text} - <code>{x}</code>\n"
+		if ban:
 			text = text+"\nBan :\n"
-			i = 0
-			for x in ban:
-				if ban_duration[i] == 0:
-					text = text+" - <code>{}</code> ({})\n".format(x,ban_duration[i])
-				else:
-					text = text+" - <code>{}</code>\n".format(x)
-				i += 1
+			for i, x in enumerate(ban):
+				text = (
+					f"{text} - <code>{x}</code> ({ban_duration[i]})\n"
+					if ban_duration[i] == 0
+					else f"{text} - <code>{x}</code>\n"
+				)
 		return await m.reply_text(text,disable_web_page_preview=True)
 	await m.reply_text(await c.tl(chat_id, 'no_blsticker'))
 
@@ -166,7 +163,6 @@ async def blsticker_watcher(c,m):
 		return
 	mention = m.from_user.mention
 	stickerid = m.sticker.file_unique_id
-	reason = ""
 	duration_raw = ""
 	check = await db.find_one({'chat_id': chat_id, 'stickerid': stickerid})
 	if not check:
@@ -174,8 +170,7 @@ async def blsticker_watcher(c,m):
 	if check['duration']:
 		duration_raw = check['duration']
 		duration = create_time(duration_raw)
-	if check['reason']:
-		reason = check['reason']
+	reason = check['reason'] if check['reason'] else ""
 	mode = check['mode']
 	if mode == 1:
 		await m.delete()
@@ -187,7 +182,7 @@ async def blsticker_watcher(c,m):
 			await c.restrict_chat_member(chat_id, user_id, ChatPermissions())
 		text += (await c.tl(chat_id, 'user_and_reason')).format(mention)
 		if reason:
-			text += "<code>{}</code>".format(reason)
+			text += f"<code>{reason}</code>"
 		else:
 			text += (await c.tl(chat_id, 'blsticker_send')).format(stickerid)
 		return await m.reply_text(text,disable_web_page_preview=True)
@@ -197,7 +192,7 @@ async def blsticker_watcher(c,m):
 		await c.ban_chat_member(chat_id,user_id)
 		await c.unban_chat_member(chat_id,user_id)
 		if reason:
-			text += "<code>{}</code>".format(reason)
+			text += f"<code>{reason}</code>"
 		else:
 			text += (await c.tl(chat_id, 'blsticker_send')).format(stickerid)
 		return await m.reply_text(text,disable_web_page_preview=True)
@@ -211,7 +206,7 @@ async def blsticker_watcher(c,m):
 			await c.ban_chat_member(chat_id, user_id)
 		text += (await c.tl(chat_id, 'user_and_reason')).format(mention)
 		if reason:
-			text += "<code>{}</code>".format(reason)
+			text += f"<code>{reason}</code>"
 		else:
 			text += (await c.tl(chat_id, 'bsticker_send')).format(stickerid)
 		await m.reply_text(text,disable_web_page_preview=True)

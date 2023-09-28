@@ -19,10 +19,10 @@ async def addblpack(c,m):
 	mode_list = {'delete': 0,'mute': 1, 'kick': 2,'ban': 3}
 	duration = ""
 	reason = ""
+	text = m.text
 	if m.reply_to_message:
 		sticker = m.reply_to_message.sticker
 		packname = sticker.set_name
-		text = m.text
 		text = text.split(None, 1)
 		if len(text) > 1:
 			extracted = split_quotes(text[1])
@@ -43,7 +43,6 @@ async def addblpack(c,m):
 		else:
 			mode_raw = "delete"
 	else:
-		text = m.text
 		text = text.split(None, 1)
 		packname = text[1]
 		extracted = split_quotes(packname)
@@ -68,7 +67,7 @@ async def addblpack(c,m):
 					mode_raw = extracted[1].lower()
 		else:
 			mode_raw = text[2]
-	if mode_raw == 'delete' or mode_raw == 'kick':
+	if mode_raw in ['delete', 'kick']:
 		duration = ""
 
 	mode = mode_list[mode_raw]
@@ -108,12 +107,12 @@ async def cmd_blpack(c,m):
 	chat_id = m.chat.id
 	list_bl = db.find({'chat_id': chat_id})
 	delete = []
-	mute = []
 	kick = []
-	ban = []
-	mute_duration = []
-	ban_duration = []
 	if list_bl:
+		mute = []
+		ban = []
+		mute_duration = []
+		ban_duration = []
 		async for bl in list_bl:
 			if bl['mode'] == 0:
 				delete.append(bl['packname'])
@@ -126,32 +125,30 @@ async def cmd_blpack(c,m):
 				ban.append(bl['packname'])
 				ban_duration.append(bl['duration'])
 		text = await c.tl(chat_id, 'blpack_list')
-		if len(delete) > 0:
+		if delete:
 			text = text+"\nDelete :\n"
 			for x in delete:
-				text = text+" - <code>{}</code>\n".format(x)
-		if len(mute) > 0:
+				text = f"{text} - <code>{x}</code>\n"
+		if mute:
 			text = text+"\nMute :\n"
-			i = 0
-			for x in mute:
-				if mute_duration[i]:
-					text = text+" - <code>{}</code> ({})\n".format(x,mute_duration[i])
-				else:
-					text = text+" - <code>{}</code>\n".format(x)
-				i += 1
-		if len(kick) > 0:
+			for i, x in enumerate(mute):
+				text = (
+					f"{text} - <code>{x}</code> ({mute_duration[i]})\n"
+					if mute_duration[i]
+					else f"{text} - <code>{x}</code>\n"
+				)
+		if kick:
 			text = text+"\nKick :\n"
 			for x in kick:
-				text = text+" - <code>{}</code>\n".format(x)
-		if len(ban) > 0:
+				text = f"{text} - <code>{x}</code>\n"
+		if ban:
 			text = text+"\nBan :\n"
-			i = 0
-			for x in ban:
-				if ban_duration[i] == 0:
-					text = text+" - <code>{}</code> ({})\n".format(x,ban_duration[i])
-				else:
-					text = text+" - <code>{}</code>\n".format(x)
-				i += 1
+			for i, x in enumerate(ban):
+				text = (
+					f"{text} - <code>{x}</code> ({ban_duration[i]})\n"
+					if ban_duration[i] == 0
+					else f"{text} - <code>{x}</code>\n"
+				)
 		return await m.reply_text(text,disable_web_page_preview=True)
 	await m.reply_text(await c.tl(chat_id, 'no_blpack'))
 
@@ -166,7 +163,6 @@ async def blpack_watcher(c,m):
 		return
 	mention = m.from_user.mention
 	packname = m.sticker.set_name
-	reason = ""
 	duration_raw = ""
 	check = await db.find_one({'chat_id': chat_id, 'packname': packname})
 	if not check:
@@ -174,8 +170,7 @@ async def blpack_watcher(c,m):
 	if check['duration']:
 		duration_raw = check['duration']
 		duration = create_time(duration_raw)
-	if check['reason']:
-		reason = check['reason']
+	reason = check['reason'] if check['reason'] else ""
 	mode = check['mode']
 	if mode == 1:
 		await m.delete()
@@ -187,7 +182,7 @@ async def blpack_watcher(c,m):
 			await c.restrict_chat_member(chat_id, user_id, ChatPermissions())
 		text += (await c.tl(chat_id, 'user_and_reason')).format(mention)
 		if reason:
-			text += "<code>{}</code>".format(reason)
+			text += f"<code>{reason}</code>"
 		else:
 			text += (await c.tl(chat_id, 'blpack_send')).format(packname)
 		return await m.reply_text(text,disable_web_page_preview=True)
@@ -197,7 +192,7 @@ async def blpack_watcher(c,m):
 		await c.ban_chat_member(chat_id,user_id)
 		await c.unban_chat_member(chat_id,user_id)
 		if reason:
-			text += "<code>{}</code>".format(reason)
+			text += f"<code>{reason}</code>"
 		else:
 			text += (await c.tl(chat_id, 'blpack_send')).format(packname)
 		return await m.reply_text(text,disable_web_page_preview=True)
@@ -211,7 +206,7 @@ async def blpack_watcher(c,m):
 			await c.ban_chat_member(chat_id, user_id)
 		text += (await c.tl(chat_id, 'user_and_reason')).format(mention)
 		if reason:
-			text += "<code>{}</code>".format(reason)
+			text += f"<code>{reason}</code>"
 		else:
 			text += (await c.tl(chat_id, 'bpack_send')).format(packname)
 		await m.reply_text(text,disable_web_page_preview=True)

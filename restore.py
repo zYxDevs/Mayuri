@@ -29,7 +29,7 @@ async def restore():
 	else:
 		print(f"Load data from {BACKUP_FILE}...")
 		datas = json_util.loads(file)
-	print(f"Restoring database...")
+	print("Restoring database...")
 	db = AsyncClient(DATABASE_URL)['mayuri']
 	for table_name in datas.keys():
 		table_data = datas[table_name]
@@ -47,7 +47,7 @@ async def restore_session():
 	else:
 		print(f"Load data from {BACKUP_FILE}...")
 		datas = json_util.loads(file)
-	print(f"Restoring database...")
+	print("Restoring database...")
 	db = AsyncClient(DATABASE_URL)['mayuri_sessions']
 	for table_name in datas.keys():
 		table_data = datas[table_name]

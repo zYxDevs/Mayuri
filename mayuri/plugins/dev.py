@@ -20,7 +20,7 @@ from typing import Any, Optional, Tuple
 @Mayuri.on_message(filters.command("eval", PREFIX) & owner_only)
 async def exec_eval(c,m):
 	text = m.text.split(None,1)
-	if not len(text) > 1:
+	if len(text) <= 1:
 		return
 	code = text[1]
 	out_buf = io.StringIO()

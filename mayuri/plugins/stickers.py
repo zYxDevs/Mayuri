@@ -42,14 +42,15 @@ async def cmd_getsticker(c,m):
 		file = m.reply_to_message.sticker
 		animated = m.reply_to_message.sticker.is_animated
 		videos = m.reply_to_message.sticker.is_video
-		filename = "images/"
-		filename += "sticker.tgs" if animated else ("sticker.webm" if videos else "sticker.png")
+		filename = "images/" + (
+			"sticker.tgs"
+			if animated
+			else ("sticker.webm" if videos else "sticker.png")
+		)
 		await m.reply_text(await c.tl(chat_id, "use_whisely"))
 		await c.download_media(file, file_name=filename)
-		filename = "mayuri/" + filename
-		thread_id = None
-		if m.message_thread_id:
-			thread_id = m.message_thread_id
+		filename = f"mayuri/{filename}"
+		thread_id = m.message_thread_id if m.message_thread_id else None
 		if animated:
 			await m.reply_text(await c.tl(chat_id, "animated_not_supported"))
 		elif videos:
