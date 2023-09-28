@@ -69,7 +69,7 @@ async def approvels(c,m):
 	for user_id in check["approved"]:
 		user = await c.get_users(user_id)
 		mention = user.mention
-		text += "\n - {}".format(mention)
+		text += f"\n - {mention}"
 	await m.reply_text(text)
 
 @Mayuri.on_message(filters.command("approve", PREFIX) & admin_only)

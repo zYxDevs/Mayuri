@@ -6,12 +6,7 @@ from pyrogram import enums, filters
 from pyrogram.errors import FloodWait
 
 async def owner_check(_, c, m):
-	if m.sender_chat:
-		return False
-	user_id = m.from_user.id
-	if user_id == c.config['bot']['OWNER']:
-		return True
-	return False
+	return False if m.sender_chat else m.from_user.id == c.config['bot']['OWNER']
 
 async def sudo_check(_, c, m):
 	if m.sender_chat:
@@ -20,9 +15,7 @@ async def sudo_check(_, c, m):
 	db = c.db["bot_settings"]
 	check = await db.find_one({'name': 'sudo_list'})
 	owner = await owner_check(_, c, m)
-	if (check and user_id in check['list']) or owner:
-		return True
-	return False
+	return bool((check and user_id in check['list']) or owner)
 
 async def admin_check(_, c, m):
 	if m.sender_chat:
@@ -43,9 +36,7 @@ async def admin_check(_, c, m):
 	user_id = m.from_user.id
 	db = c.db["admin_list"]
 	check = await db.find_one({"chat_id": chat_id})
-	if check and user_id in check["list"]:
-		return True
-	return False
+	return bool(check and user_id in check["list"])
 
 def disable(func):
 	wraps(func)

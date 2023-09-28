@@ -1,26 +1,26 @@
 lang_name = "🇮🇩 Indonesia"
 text = {
-	'select_lang': "Silahkan pilih bahasa yang ingin anda gunakan:",
-	'language_changed': "Bahasa berhasil diubah menjadi {}".format(lang_name),
-	'pm_me': "Hubungi saya di PM.",
-	'not_user': "Itu bukan user!",
-	'added_to_sudo': "User {} telah ditambahkan ke SUDO",
-	'removed_from_sudo': "User {} telah di hapus dari SUDO",
-	'sudo_ls': "Daftar sudo saya:",
-	'user_is_sudo': "User {} sudah ada didaftar sudo!",
-	'user_is_not_sudo': "User {} tidak ada didalam daftar sudo!",
-	'no_sudo': "Tidak ada user didalam daftar sudo!",
-	'helps': "Bantuan",
-	'this_plugin_help': "Ini adalah bantuan untuk plugin **{}**:\n",
-	'back': "Kembali",
-	'refreshing_admin': "Merefresh cache admin...",
-	'search_zombies': "Mencari akun terhapus...",
-	'no_zombies': "Grup bersih. tidak ada akun terhapus :)",
-	'found_zombies': "Ditemukan {} akun terhapus.\nMembersihan...",
-	'zombies_cleaned': "Berhasil membersihkan {} akun terhapus",
-	'zombies_cleaned_schedule': "Berhasil membersihkan {} akun terhapus\n\nPembersihan selanjutnya pada:\n{}",
-	'admin': "Admin Tools",
-	'admin_help': """
+    'select_lang': "Silahkan pilih bahasa yang ingin anda gunakan:",
+    'language_changed': f"Bahasa berhasil diubah menjadi {lang_name}",
+    'pm_me': "Hubungi saya di PM.",
+    'not_user': "Itu bukan user!",
+    'added_to_sudo': "User {} telah ditambahkan ke SUDO",
+    'removed_from_sudo': "User {} telah di hapus dari SUDO",
+    'sudo_ls': "Daftar sudo saya:",
+    'user_is_sudo': "User {} sudah ada didaftar sudo!",
+    'user_is_not_sudo': "User {} tidak ada didalam daftar sudo!",
+    'no_sudo': "Tidak ada user didalam daftar sudo!",
+    'helps': "Bantuan",
+    'this_plugin_help': "Ini adalah bantuan untuk plugin **{}**:\n",
+    'back': "Kembali",
+    'refreshing_admin': "Merefresh cache admin...",
+    'search_zombies': "Mencari akun terhapus...",
+    'no_zombies': "Grup bersih. tidak ada akun terhapus :)",
+    'found_zombies': "Ditemukan {} akun terhapus.\nMembersihan...",
+    'zombies_cleaned': "Berhasil membersihkan {} akun terhapus",
+    'zombies_cleaned_schedule': "Berhasil membersihkan {} akun terhapus\n\nPembersihan selanjutnya pada:\n{}",
+    'admin': "Admin Tools",
+    'admin_help': """
 Module ini digunakan untuk mengatur grup.
 [Admin Tools]
 > `/admincache`
@@ -32,20 +32,20 @@ Menghapus user dari whitelist.
 > `/zombies`
 Mencari dan membersihkan akun terhapus.
 	""",
-	'admin_refreshed': "Cache admin berhasil direfresh.",
-	'admin_approved_list': "Daftar user yang diwhitelist di grup ini:",
-	'admin_no_approved': "Belum ada user yang diwhitelist di grup ini!",
-	'admin_user_added_to_approve': "User {} telah ditambahkan ke daftar whitelist",
-	'admin_user_removed_to_approve': "User {} telah dihapus dari daftar whitelist",
-	'admin_list_text': "**Daftar Admin di Grup Ini**\n",
-	'HELP_STRINGS': """
+    'admin_refreshed': "Cache admin berhasil direfresh.",
+    'admin_approved_list': "Daftar user yang diwhitelist di grup ini:",
+    'admin_no_approved': "Belum ada user yang diwhitelist di grup ini!",
+    'admin_user_added_to_approve': "User {} telah ditambahkan ke daftar whitelist",
+    'admin_user_removed_to_approve': "User {} telah dihapus dari daftar whitelist",
+    'admin_list_text': "**Daftar Admin di Grup Ini**\n",
+    'HELP_STRINGS': """
 Kamu dapat menggunakan {} untuk mengeksekusi perintah bot ini.
 Perintah **Utama** yang tersedia:
  - /start: mendapatkan pesan start
  - /help: mendapatkan semua bantuan
 	""",
-	'stickers': "Sticker",
-	'stickers_help': """
+    'stickers': "Sticker",
+    'stickers_help': """
 [Stickers]
 > `/stickerid`
 Mendapatkan id dari sticker yang dibalas
@@ -56,23 +56,23 @@ Untuk mendapatkan sticker yang dibalas dalam bentuk gambar/video (png/webm)
 > `/kang`
 Untuk mencuri sticker.
 	""",
-	'your_stickerid': "Id sticker yang anda balas :\n{}",
-	'must_reply_to_sticker': "Anda harus membalas pesan sticker untuk menggunakan perintah ini!",
-	'animated_not_supported': "Stiker animasi tidak didukung!",
-	'use_whisely': "Gunakan fitur ini dengan bijak!\nSilahkan cek gambar dibawah ini :)",
-	'processing': "Memproses...",
-	'cannot_kang': "Itu tidak dapat di Kang!",
-	'creating_pack': "Membuat Stickerpack...",
-	'cannot_create_pack': "Terjadi kesalahan saat membuat Stickerpack!",
-	'show_pack': "Lihat Stickerpack",
-	'sticker_kanged': "Sticker berhasil dikang.",
-	'stickerpackinvalid': "Sticker tidak berasal dari Stickerpack yang dibuat bot ini!",
-	'notyourstickerpack': "Sticker tidak berasal dari Stickerpack anda!",
-	'stickerinvalid': "Tidak dapat menghapus sticker, pastikan sticker berada dalam stickerpack yang dibuat melalui bot ini!",
-	'stickerdeleted': "Sticker berhasil dihapus dari stickerpack.",
-	'notreplytosticker': "Reply ke sticker yang ingin anda hapus dari stickerpack!",
-	'blacklist': "Daftar hitam",
-	'blacklist_help': """Module ini digunakan untuk melarang penggunaan suatu kata dalam pesan.
+    'your_stickerid': "Id sticker yang anda balas :\n{}",
+    'must_reply_to_sticker': "Anda harus membalas pesan sticker untuk menggunakan perintah ini!",
+    'animated_not_supported': "Stiker animasi tidak didukung!",
+    'use_whisely': "Gunakan fitur ini dengan bijak!\nSilahkan cek gambar dibawah ini :)",
+    'processing': "Memproses...",
+    'cannot_kang': "Itu tidak dapat di Kang!",
+    'creating_pack': "Membuat Stickerpack...",
+    'cannot_create_pack': "Terjadi kesalahan saat membuat Stickerpack!",
+    'show_pack': "Lihat Stickerpack",
+    'sticker_kanged': "Sticker berhasil dikang.",
+    'stickerpackinvalid': "Sticker tidak berasal dari Stickerpack yang dibuat bot ini!",
+    'notyourstickerpack': "Sticker tidak berasal dari Stickerpack anda!",
+    'stickerinvalid': "Tidak dapat menghapus sticker, pastikan sticker berada dalam stickerpack yang dibuat melalui bot ini!",
+    'stickerdeleted': "Sticker berhasil dihapus dari stickerpack.",
+    'notreplytosticker': "Reply ke sticker yang ingin anda hapus dari stickerpack!",
+    'blacklist': "Daftar hitam",
+    'blacklist_help': """Module ini digunakan untuk melarang penggunaan suatu kata dalam pesan.
 [Word Blacklist]
 > `/addbl <kata> [<mode>] [<waktu>] [<alasan>]`
 Menambahkan kata kedalam daftar hitam
@@ -102,22 +102,22 @@ daftar unit waktu :
 - h = jam
 - d = hari
 	""",
-	'blacklist_added': "<code>{}</code> Telah ditambahkan ke Blacklist dengan mode {}",
-	'blacklist_duration': " dan durasi selama {}",
-	'blacklist_reason': ".\nAlasan: {}",
-	'blacklist_deleted': "<code>{}</code> Berhasil dihapus dari Blacklist!",
-	'blacklist_not_found': "Blacklist dengan trigger <code>{}</code> tidak ditemukan!",
-	'what_blacklist_to_remove': "Apa yang mau dihapus dari Blacklist?",
-	'blacklist_list': "Daftar kata yang diblacklist di Grup ini:\n",
-	'no_blacklist': "Tidak ada kata yang diblacklist di Grup ini!",
-	'muted': "Dibisukan",
-	'kicked': "Ditendang",
-	'banned': "Dibanned",
-	'blacklist_for': " selama {}",
-	'user_and_reason': "\nUser : {}\nAlasan :",
-	'blacklist_said': " Mengatakan <code>{}</code>",
-	'filters': "Filters",
-	'filters_help': """
+    'blacklist_added': "<code>{}</code> Telah ditambahkan ke Blacklist dengan mode {}",
+    'blacklist_duration': " dan durasi selama {}",
+    'blacklist_reason': ".\nAlasan: {}",
+    'blacklist_deleted': "<code>{}</code> Berhasil dihapus dari Blacklist!",
+    'blacklist_not_found': "Blacklist dengan trigger <code>{}</code> tidak ditemukan!",
+    'what_blacklist_to_remove': "Apa yang mau dihapus dari Blacklist?",
+    'blacklist_list': "Daftar kata yang diblacklist di Grup ini:\n",
+    'no_blacklist': "Tidak ada kata yang diblacklist di Grup ini!",
+    'muted': "Dibisukan",
+    'kicked': "Ditendang",
+    'banned': "Dibanned",
+    'blacklist_for': " selama {}",
+    'user_and_reason': "\nUser : {}\nAlasan :",
+    'blacklist_said': " Mengatakan <code>{}</code>",
+    'filters': "Filters",
+    'filters_help': """
 Module ini digunakan untuk membuat reply otomatis untuk suatu kata.
 [Filters]
 > `/filter <kata> <balasan`
@@ -129,16 +129,16 @@ Menghapus filter
 > `/filters`
 Mendapatkan daftar filter aktif
 	""",
-	'give_filter_name': "Anda harus memberikan nama untuk filter ini!",
-	'give_filter_text': "Anda harus menambahkan teks untuk filter ini, tidak bisa menggunakan button saja!",
-	'filter_added': "Handler <code>{}</code> Telah ditambahkan di {}",
-	'filter_removed': "Saya akan berhenti membalas <code>{}</code> di {}!",
-	'filter_not_found': "<code>{}</code> Bukan filter aktif!",
-	'what_filter_to_remove': "Apa yang mau dihapus dari filter?",
-	'filter_list': "Daftar filters di Grup ini:\n",
-	'no_filter_found': "Tidak ada filters di {}!",
-	'blpack': "Daftar Hitam Stickerpack",
-	'blpack_help': """Module ini digunakan untuk melarang penggunaan semua sticker dalam suatu Stickerpack.
+    'give_filter_name': "Anda harus memberikan nama untuk filter ini!",
+    'give_filter_text': "Anda harus menambahkan teks untuk filter ini, tidak bisa menggunakan button saja!",
+    'filter_added': "Handler <code>{}</code> Telah ditambahkan di {}",
+    'filter_removed': "Saya akan berhenti membalas <code>{}</code> di {}!",
+    'filter_not_found': "<code>{}</code> Bukan filter aktif!",
+    'what_filter_to_remove': "Apa yang mau dihapus dari filter?",
+    'filter_list': "Daftar filters di Grup ini:\n",
+    'no_filter_found': "Tidak ada filters di {}!",
+    'blpack': "Daftar Hitam Stickerpack",
+    'blpack_help': """Module ini digunakan untuk melarang penggunaan semua sticker dalam suatu Stickerpack.
 [Stickerpack Blacklist]
 > `/addblpack [<mode>] [<waktu>] [<alasan>]`
 Menambahkan stickerpack kedalam daftar hitam
@@ -168,14 +168,14 @@ daftar unit waktu :
 - h = jam
 - d = hari
 	""",
-	'blpack_added': "Sticker Pack <code>{}</code> Telah ditambahkan ke Blacklist dengan {}",
-	'blpack_deleted': "Sticker Pack <code>{}</code> Berhasil dihapus dari Blacklist!",
-	'blpack_not_found': "Sticker Pack dengan nama <code>{}</code> tidak ditemukan di blacklist!",
-	'blpack_list': "Daftar Sticker Pack yang diblacklist di Grup ini:\n",
-	'no_blpack': "Tidak ada Sticker Pack yang diblacklist di Grup ini!",
-	'blpack_send': "Mengirimkan sticker yang ada di pack <code>{}</code>",
-	'blsticker': "Daftar Hitam Sticker",
-	'blsticker_help': """Module ini digunakan untuk melarang penggunaan suatu sticker.
+    'blpack_added': "Sticker Pack <code>{}</code> Telah ditambahkan ke Blacklist dengan {}",
+    'blpack_deleted': "Sticker Pack <code>{}</code> Berhasil dihapus dari Blacklist!",
+    'blpack_not_found': "Sticker Pack dengan nama <code>{}</code> tidak ditemukan di blacklist!",
+    'blpack_list': "Daftar Sticker Pack yang diblacklist di Grup ini:\n",
+    'no_blpack': "Tidak ada Sticker Pack yang diblacklist di Grup ini!",
+    'blpack_send': "Mengirimkan sticker yang ada di pack <code>{}</code>",
+    'blsticker': "Daftar Hitam Sticker",
+    'blsticker_help': """Module ini digunakan untuk melarang penggunaan suatu sticker.
 [Sticker Blacklist]
 > `/addblsticker [<mode>] [<waktu>] [<alasan>]`
 Menambahkan stickerpack kedalam daftar hitam
@@ -205,14 +205,14 @@ daftar unit waktu :
 - h = jam
 - d = hari
 	""",
-	'blsticker_added': "Sticker <code>{}</code> Telah ditambahkan ke Blacklist dengan {}",
-	'blsticker_deleted': "Sticker <code>{}</code> Berhasil dihapus dari Blacklist!",
-	'blsticker_not_found': "Sticker dengan id <code>{}</code> tidak ditemukan di blacklist!",
-	'blsticker_list': "Daftar Sticker yang diblacklist di Grup ini:\n",
-	'no_blsticker': "Tidak ada Sticker yang diblacklist di Grup ini!",
-	'blsticker_send': "Mengirimkan sticker <code>{}</code>",
-	'disable': "Disable Commands",
-	'disable_help': """Modul ini digunakan untuk menon-aftikan penggunaan perintah didalam grup
+    'blsticker_added': "Sticker <code>{}</code> Telah ditambahkan ke Blacklist dengan {}",
+    'blsticker_deleted': "Sticker <code>{}</code> Berhasil dihapus dari Blacklist!",
+    'blsticker_not_found': "Sticker dengan id <code>{}</code> tidak ditemukan di blacklist!",
+    'blsticker_list': "Daftar Sticker yang diblacklist di Grup ini:\n",
+    'no_blsticker': "Tidak ada Sticker yang diblacklist di Grup ini!",
+    'blsticker_send': "Mengirimkan sticker <code>{}</code>",
+    'disable': "Disable Commands",
+    'disable_help': """Modul ini digunakan untuk menon-aftikan penggunaan perintah didalam grup
 [Disable Commands]
 > `/disable <perintah>`
 Untuk menonaktifkan perintah
@@ -230,59 +230,59 @@ Untuk menampilkan daftar perintah yang telah di non-aktifkan
 > `/disableable`
 Untuk menampilkan daftar perintah yang dapat di non-aktifkan
 	""",
-	'cmd_not_found': "Perintah {} tidak tersedia!",
-	'cmd_disabled': "Perintah {} berhasil dinon-aktifkan!",
-	'what_cmd_to_disable': "Perintah apa yang mau dinon-aktifkan?",
-	'cmd_enabled': "Perintah {} berhasil diaktifkan!",
-	'what_cmd_to_enable': "Perintah apa yang mau diaktifkan?",
-	'disabled_list': "Daftar Perintah yang dinon-aktifkan di grup ini:\n",
-	'no_cmd_disabled': "Tidak ada Perintah yang dinon-aktifkan di grup ini!",
-	'can_disabled': "Daftar Perintah yang dapat dinon-aktifkan:\n",
-	'cmd_already_disabled': "Perintah sudah ada di daftar non-aktif!",
-	'cmd_not_disabled': "Perintah tidak ada di daftar non-aktif!",
-	'need_user_id': "Berikan username atau id user!",
-	'why_gban_owner': "Kenapa saya harus gban master saya?",
-	'why_gban_sudo': "Kenapa saya harus gban sudo saya?",
-	'why_gmute_owner': "Kenapa saya harus gmute master saya?",
-	'why_gmute_sudo': "Kenapa saya harus gmute sudo saya?",
-	'why_gdmute_owner': "Kenapa saya harus gdmute master saya?",
-	'why_gdmute_sudo': "Kenapa saya harus gdmute sudo saya?",
-	'why_ungdmute_sudo': "Hanya Owner yang dapat ungdmute sudo!",
-	'gbanned': "User {} telah di ban secara global",
-	'gmuted': 'User {} telah di mute secara global',
-	'gdmuted': 'User {} telah di dmute secara global',
-	'ungbanned': "User {} telah di unban secara global",
-	'ungmuted': 'User {} telah di unmute secara global',
-	'ungdmuted': 'User {} telah di undmute secara global',
-	'user_in_gban': 'User {} ada di daftar global ban dan telah dibanned dari grup!',
-	'user_in_gmute': 'User {} ada di daftar global mute dan telah dibisukan!',
-	'restrict_time_left': "\nSisa waktu: {}",
-	'new_gban': "#GBAN\n**Global Ban Baru**",
-	'new_gmute': "#GMUTE\n**Global Mute Baru**",
-	'new_gdmute': "#GDMUTE\n**Global Delete Mute Baru**",
-	'new_ungban': "#UNGBAN\n**Lepas Global Ban Baru**",
-	'new_ungmute': "#UNGMUTE\n**Lepas Global Mute Baru**",
-	'new_ungdmute': "#UNGDMUTE\n**Lepas Global Delete Mute Baru**",
-	'geting_info': "Mendapatkan info...",
-	'infouser_info': "**Informasi User**",
-	'infouser_id': "\nID: `{}`",
-	'infouser_firstname': "\nNama depan: {}",
-	'infouser_lastname': "\nNama belakang: {}",
-	'infouser_name': "\nNama pengguna: @{}",
-	'infouser_link': "\nLink: [link](tg://user?id={})",
-	'infouser_in_gban': "\n\nUser ada didaftar gban.",
-	'infouser_in_gmute': "\n\nUser ada didaftar gmute.",
-	'infouser_in_gdmute': "\n\nUser ada didaftar gdmute.",
-	'infouser_date': "\nTanggal: {}",
-	'infouser_sudo': "\nSudo: {}",
-	'infouser_duration': "\nDurasi: {}",
-	'infouser_is_channel': "Tolong reply ke pengguna bukan channel!",
-	'cas_log': "#ANTI_SPAM\nANTI_SPAM Global Ban Baru.\nChat: @{}\nPengguna: {}\nID Pengguna: `{}`\nAlasan: {}",
-	'cas_msg': "User {} telah di ban secara global\nAlasan: {}\n\nPowered by: Combot Anti Spam API",
-	'welcome_set': "Pesan Sambutan berhasil diatur",
-	'not_forum': "Grup ini bukan forum. silahkan hidupkan option topic terlebih dahulu!",
-	'greetings': "Pesan Sambutan",
-	'greetings_help': """Modul ini digunakan untuk memberikan pesan sambutan kepada member baru.
+    'cmd_not_found': "Perintah {} tidak tersedia!",
+    'cmd_disabled': "Perintah {} berhasil dinon-aktifkan!",
+    'what_cmd_to_disable': "Perintah apa yang mau dinon-aktifkan?",
+    'cmd_enabled': "Perintah {} berhasil diaktifkan!",
+    'what_cmd_to_enable': "Perintah apa yang mau diaktifkan?",
+    'disabled_list': "Daftar Perintah yang dinon-aktifkan di grup ini:\n",
+    'no_cmd_disabled': "Tidak ada Perintah yang dinon-aktifkan di grup ini!",
+    'can_disabled': "Daftar Perintah yang dapat dinon-aktifkan:\n",
+    'cmd_already_disabled': "Perintah sudah ada di daftar non-aktif!",
+    'cmd_not_disabled': "Perintah tidak ada di daftar non-aktif!",
+    'need_user_id': "Berikan username atau id user!",
+    'why_gban_owner': "Kenapa saya harus gban master saya?",
+    'why_gban_sudo': "Kenapa saya harus gban sudo saya?",
+    'why_gmute_owner': "Kenapa saya harus gmute master saya?",
+    'why_gmute_sudo': "Kenapa saya harus gmute sudo saya?",
+    'why_gdmute_owner': "Kenapa saya harus gdmute master saya?",
+    'why_gdmute_sudo': "Kenapa saya harus gdmute sudo saya?",
+    'why_ungdmute_sudo': "Hanya Owner yang dapat ungdmute sudo!",
+    'gbanned': "User {} telah di ban secara global",
+    'gmuted': 'User {} telah di mute secara global',
+    'gdmuted': 'User {} telah di dmute secara global',
+    'ungbanned': "User {} telah di unban secara global",
+    'ungmuted': 'User {} telah di unmute secara global',
+    'ungdmuted': 'User {} telah di undmute secara global',
+    'user_in_gban': 'User {} ada di daftar global ban dan telah dibanned dari grup!',
+    'user_in_gmute': 'User {} ada di daftar global mute dan telah dibisukan!',
+    'restrict_time_left': "\nSisa waktu: {}",
+    'new_gban': "#GBAN\n**Global Ban Baru**",
+    'new_gmute': "#GMUTE\n**Global Mute Baru**",
+    'new_gdmute': "#GDMUTE\n**Global Delete Mute Baru**",
+    'new_ungban': "#UNGBAN\n**Lepas Global Ban Baru**",
+    'new_ungmute': "#UNGMUTE\n**Lepas Global Mute Baru**",
+    'new_ungdmute': "#UNGDMUTE\n**Lepas Global Delete Mute Baru**",
+    'geting_info': "Mendapatkan info...",
+    'infouser_info': "**Informasi User**",
+    'infouser_id': "\nID: `{}`",
+    'infouser_firstname': "\nNama depan: {}",
+    'infouser_lastname': "\nNama belakang: {}",
+    'infouser_name': "\nNama pengguna: @{}",
+    'infouser_link': "\nLink: [link](tg://user?id={})",
+    'infouser_in_gban': "\n\nUser ada didaftar gban.",
+    'infouser_in_gmute': "\n\nUser ada didaftar gmute.",
+    'infouser_in_gdmute': "\n\nUser ada didaftar gdmute.",
+    'infouser_date': "\nTanggal: {}",
+    'infouser_sudo': "\nSudo: {}",
+    'infouser_duration': "\nDurasi: {}",
+    'infouser_is_channel': "Tolong reply ke pengguna bukan channel!",
+    'cas_log': "#ANTI_SPAM\nANTI_SPAM Global Ban Baru.\nChat: @{}\nPengguna: {}\nID Pengguna: `{}`\nAlasan: {}",
+    'cas_msg': "User {} telah di ban secara global\nAlasan: {}\n\nPowered by: Combot Anti Spam API",
+    'welcome_set': "Pesan Sambutan berhasil diatur",
+    'not_forum': "Grup ini bukan forum. silahkan hidupkan option topic terlebih dahulu!",
+    'greetings': "Pesan Sambutan",
+    'greetings_help': """Modul ini digunakan untuk memberikan pesan sambutan kepada member baru.
 [Pesan sambutan]
 > `/setwelcome <Pesan>`
 Menambahkan/Mengubah pesan sambutan.
@@ -306,14 +306,14 @@ Pesan sambutan dapat mengandung media sebagai berikut:
 - Foto/gambar
 - Video
 	""",
-	'welcome_not_set': "Pesan sambutan belum diatur di grup ini!",
-	'thread_id_set': "Berhasil.\nSemua pesan sambutan akan dikirim ke topic ini.",
-	'welcome_enabled': "Pesan sambutan diaktifkan!",
-	'welcome_disabled': "Pesan sambutan dinon-aktifkan!",
-	'welcome_settings': "**Pengaturan Pesan Sambutan:**\nAktif: {}\nPembersih Pesan Layanan: {}\nForum Thread ID: `{}`\nCaptcha: {}\nCaptcha timeout: {}\nText verifikasi: {}",
-	'default-welcome': "Selamat datang {first} di Grup {chatname}!",
-	'captcha': "Captcha",
-	'captcha_help': """Modul ini digunakan untuk memverifikasi member baru.
+    'welcome_not_set': "Pesan sambutan belum diatur di grup ini!",
+    'thread_id_set': "Berhasil.\nSemua pesan sambutan akan dikirim ke topic ini.",
+    'welcome_enabled': "Pesan sambutan diaktifkan!",
+    'welcome_disabled': "Pesan sambutan dinon-aktifkan!",
+    'welcome_settings': "**Pengaturan Pesan Sambutan:**\nAktif: {}\nPembersih Pesan Layanan: {}\nForum Thread ID: `{}`\nCaptcha: {}\nCaptcha timeout: {}\nText verifikasi: {}",
+    'default-welcome': "Selamat datang {first} di Grup {chatname}!",
+    'captcha': "Captcha",
+    'captcha_help': """Modul ini digunakan untuk memverifikasi member baru.
 [Captcha]
 > `/welcomecaptcha <on/off>`
 Mengaktifkan/Menonaktifkan captcha.
@@ -331,23 +331,23 @@ contoh: `/setcaptchatimeout 20m`
 Mengubah teks tombol verifikasi.
 contoh: `/setverifytext Saya bukan robot`
 	""",
-	'verif_text': "Klik disini untuk verifikasi!",
-	'verify_id_not_found': "Verify id tidak ditemukan!",
-	'not_your_captcha': "ID verify dan ID User tidak cocok!",
-	'captcha_enabled': "Captcha diaktifkan.",
-	'captcha_disabled': "Captcha dinon-aktifkan.",
-	'captcha_timeout_format_invalid': "Format timeout yang anda masukkan tidak valid!",
-	'captcha_timeout_set': "Captcha timeout berhasil diatur ke {}.",
-	'select_all_emojis': "Pilih semua emoji yang ada di gambar:",
-	'generate_captcha': "Membuat captcha...",
-	'regenerate_captcha': "Membuat ulang captcha...",
-	'select_captcha_type': "Pilih jenis captcha:",
-	'press_verify': "Silahkan klik tombol verifikasi dibawah.",
-	'verify': "Verifikasi",
-	'verification_failed': "Verifikasi gagal! Mohon coba lagi.",
-	'verify_text_set': "Teks tombol verify diubah menjadi `{}`.",
-	'rules': "Peraturan",
-	'rules_help': """Modul ini digunakan untuk memberikan peraturan di dalam grup
+    'verif_text': "Klik disini untuk verifikasi!",
+    'verify_id_not_found': "Verify id tidak ditemukan!",
+    'not_your_captcha': "ID verify dan ID User tidak cocok!",
+    'captcha_enabled': "Captcha diaktifkan.",
+    'captcha_disabled': "Captcha dinon-aktifkan.",
+    'captcha_timeout_format_invalid': "Format timeout yang anda masukkan tidak valid!",
+    'captcha_timeout_set': "Captcha timeout berhasil diatur ke {}.",
+    'select_all_emojis': "Pilih semua emoji yang ada di gambar:",
+    'generate_captcha': "Membuat captcha...",
+    'regenerate_captcha': "Membuat ulang captcha...",
+    'select_captcha_type': "Pilih jenis captcha:",
+    'press_verify': "Silahkan klik tombol verifikasi dibawah.",
+    'verify': "Verifikasi",
+    'verification_failed': "Verifikasi gagal! Mohon coba lagi.",
+    'verify_text_set': "Teks tombol verify diubah menjadi `{}`.",
+    'rules': "Peraturan",
+    'rules_help': """Modul ini digunakan untuk memberikan peraturan di dalam grup
 [Peraturan]
 > `/setrules <Peraturan>`
 Untuk menambahkan/merubah peraturan grup.
@@ -355,10 +355,10 @@ Untuk menambahkan/merubah peraturan grup.
 > `/rules`
 Untuk melihat peraturan grup.
 	""",
-	'rules_for_this_group': "Peraturan untuk grup ini:\n",
-	'no_rules': "Belum ada peraturan untuk grup ini!.",
-	'rules_set': "Berhasil mengatur peraturan.",
-	'accept': "✅ Setuju",
-	'decline': "❌ Tolak",
-	'translation_not_found': "Terjemahaan untuk `{}` tidak ditemukan!",
+    'rules_for_this_group': "Peraturan untuk grup ini:\n",
+    'no_rules': "Belum ada peraturan untuk grup ini!.",
+    'rules_set': "Berhasil mengatur peraturan.",
+    'accept': "✅ Setuju",
+    'decline': "❌ Tolak",
+    'translation_not_found': "Terjemahaan untuk `{}` tidak ditemukan!",
 }

@@ -46,7 +46,7 @@ async def addbl(c,m):
 				mode_raw = extracted[1].lower()
 	else:
 		mode_raw = text[2]
-	if mode_raw == 'delete' or mode_raw == 'kick':
+	if mode_raw in ['delete', 'kick']:
 		duration = ""
 
 	mode = mode_list[mode_raw]
@@ -84,12 +84,12 @@ async def cmd_blacklist(c,m):
 	chat_id = m.chat.id
 	list_trigger = db.find({'chat_id': chat_id})
 	delete = []
-	mute = []
 	kick = []
-	ban = []
-	mute_duration = []
-	ban_duration = []
 	if list_trigger:
+		mute = []
+		ban = []
+		mute_duration = []
+		ban_duration = []
 		async for trigger in list_trigger:
 			if trigger['mode'] == 0:
 				delete.append(trigger['trigger'])
@@ -102,32 +102,30 @@ async def cmd_blacklist(c,m):
 				ban.append(trigger['trigger'])
 				ban_duration.append(trigger['duration'])
 		text = await c.tl(chat_id, 'blacklist_list')
-		if len(delete) > 0:
+		if delete:
 			text = text+"\nDelete :\n"
 			for x in delete:
-				text = text+" - <code>{}</code>\n".format(x)
-		if len(mute) > 0:
+				text = f"{text} - <code>{x}</code>\n"
+		if mute:
 			text = text+"\nMute :\n"
-			i = 0
-			for x in mute:
-				if mute_duration[i]:
-					text = text+" - <code>{}</code> ({})\n".format(x,mute_duration[i])
-				else:
-					text = text+" - <code>{}</code>\n".format(x)
-				i += 1
-		if len(kick) > 0:
+			for i, x in enumerate(mute):
+				text = (
+					f"{text} - <code>{x}</code> ({mute_duration[i]})\n"
+					if mute_duration[i]
+					else f"{text} - <code>{x}</code>\n"
+				)
+		if kick:
 			text = text+"\nKick :\n"
 			for x in kick:
-				text = text+" - <code>{}</code>\n".format(x)
-		if len(ban) > 0:
+				text = f"{text} - <code>{x}</code>\n"
+		if ban:
 			text = text+"\nBan :\n"
-			i = 0
-			for x in ban:
-				if ban_duration[i] == 0:
-					text = text+" - <code>{}</code> ({})\n".format(x,ban_duration[i])
-				else:
-					text = text+" - <code>{}</code>\n".format(x)
-				i += 1
+			for i, x in enumerate(ban):
+				text = (
+					f"{text} - <code>{x}</code> ({ban_duration[i]})\n"
+					if ban_duration[i] == 0
+					else f"{text} - <code>{x}</code>\n"
+				)
 		return await m.reply_text(text,disable_web_page_preview=True)
 	await m.reply_text(await c.tl(chat_id, 'no_blacklist'))
 

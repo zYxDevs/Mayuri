@@ -97,7 +97,7 @@ async def cmd_filters(c,m):
 	text = await c.tl(chat_id, 'filter_list')
 	if list_name:
 		async for filt in list_name:
-			text = text+" - <code>{}</code>\n".format(filt['name'])
+			text = f"{text} - <code>{filt['name']}</code>\n"
 		await m.reply_text(text,disable_web_page_preview=True)
 	else:
 		await m.reply_text((await c.tl(chat_id, 'no_filter_found')).format(m.chat.title))
@@ -106,10 +106,7 @@ async def cmd_filters(c,m):
 async def filter_watcher(c,m):
 	db = c.db["filters"]
 	chat_id = m.chat.id
-	if m.caption:
-		text = m.caption
-	else:
-		text = m.text
+	text = m.caption if m.caption else m.text
 	if not text:
 		return
 	if m.command and (m.command[0]).lower() in ['filter', 'stop']:
@@ -132,7 +129,7 @@ async def filter_watcher(c,m):
 		mention = m.from_user.mention
 		first_name = m.from_user.first_name
 		last_name = m.from_user.last_name
-		fullname = "{} {}".format(first_name,last_name)
+		fullname = f"{first_name} {last_name}"
 		user_id = m.from_user.id
 		user_name = m.from_user.username
 	value = ""
@@ -140,14 +137,10 @@ async def filter_watcher(c,m):
 		return
 	async for filt in check:
 		if filt['name'] in text:
-			value = filt['value']
-			if value:
+			if value := filt['value']:
 				text, button = parse_button(value)
 				button = build_keyboard(button)
-				if button:
-					button = InlineKeyboardMarkup(button)
-				else:
-					button = None
+				button = InlineKeyboardMarkup(button) if button else None
 			else:
 				text = ""
 				button = None

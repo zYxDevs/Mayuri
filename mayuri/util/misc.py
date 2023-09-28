@@ -18,25 +18,32 @@ class EqInlineKeyboardButton(InlineKeyboardButton):
 async def paginate_plugins(client, _page_n, plugin_dict, prefix, chat_id, chat=None):
     if not chat:
         plugins = sorted(
-            [EqInlineKeyboardButton(await client.tl(chat_id, x.__PLUGIN__),
-                                    callback_data="{}_plugin({})".format(prefix, x.__PLUGIN__.lower())) for x
-             in plugin_dict.values()])
+            [
+                EqInlineKeyboardButton(
+                    await client.tl(chat_id, x.__PLUGIN__),
+                    callback_data=f"{prefix}_plugin({x.__PLUGIN__.lower()})",
+                )
+                for x in plugin_dict.values()
+            ]
+        )
     else:
         plugins = sorted(
-            [EqInlineKeyboardButton(await client.tl(chat_id, x.__PLUGIN__),
-                                    callback_data="{}_plugin({},{})".format(prefix, chat, x.__PLUGIN__.lower())) for x
-             in plugin_dict.values()])
+            [
+                EqInlineKeyboardButton(
+                    await client.tl(chat_id, x.__PLUGIN__),
+                    callback_data=f"{prefix}_plugin({chat},{x.__PLUGIN__.lower()})",
+                )
+                for x in plugin_dict.values()
+            ]
+        )
 
     pairs = [
     plugins[i * 3:(i + 1) * 3] for i in range((len(plugins) + 3 - 1) // 3)
     ]
     round_num = len(plugins) / 3
     calc = len(plugins) - round(round_num)
-    if calc == 1:
+    if calc in [1, 2]:
         pairs.append((plugins[-1], ))
-    elif calc == 2:
-        pairs.append((plugins[-1],))
-
     return pairs
 
 def get_emoji_regex():

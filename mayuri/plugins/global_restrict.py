@@ -65,7 +65,7 @@ async def cas_watcher(c,m):
 				):
 					await c.ban_chat_member(chat["chat_id"],user_id)
 			except RPCError as e:
-				print("{} | {}".format(e,chat["chat_name"]))
+				print(f'{e} | {chat["chat_name"]}')
 	log = (await c.tl(chat_id, "cas_log")).format(chat["chat_username"],mention,user_id,reason)
 	text = (await c.tl(chat_id, "cas_msg")).format(mention,reason)
 	if msg:
@@ -82,7 +82,6 @@ async def gban_task(c,m):
 	text = text.split(None, 1)
 	duration = ""
 	reason = ""
-	until = 0
 	msg = await m.reply_text("GBanning...")
 	if m.reply_to_message:
 		user = m.reply_to_message.from_user
@@ -99,24 +98,23 @@ async def gban_task(c,m):
 			else:
 				reason = text[1]
 	else:
-		if len(text) > 1:
-			extracted = split_quotes(text[1])
-			if len(extracted) > 1:
-				user_id = extracted[0]
-				extracted1 = split_quotes(extracted[1])
-				if re.match(r"([0-9]{1,})([dhms])$", extracted[1].lower()):
-					duration = extracted[1].lower()
-				elif len(extracted1) > 1 and re.match(r"([0-9]{1,})([dhms])$", extracted1[0].lower()):
-					duration = extracted1[0].lower()
-					reason = extracted1[1].lower()
-				else:
-					reason = extracted[1].lower()
-			else:
-				user_id = text[1]
-			if user_id.isnumeric():
-				user_id = int(user_id)
-		else:
+		if len(text) <= 1:
 			return await msg.edit_text(await c.tl(chat_id, "need_user_id"))
+		extracted = split_quotes(text[1])
+		if len(extracted) > 1:
+			user_id = extracted[0]
+			extracted1 = split_quotes(extracted[1])
+			if re.match(r"([0-9]{1,})([dhms])$", extracted[1].lower()):
+				duration = extracted[1].lower()
+			elif len(extracted1) > 1 and re.match(r"([0-9]{1,})([dhms])$", extracted1[0].lower()):
+				duration = extracted1[0].lower()
+				reason = extracted1[1].lower()
+			else:
+				reason = extracted[1].lower()
+		else:
+			user_id = text[1]
+		if user_id.isnumeric():
+			user_id = int(user_id)
 		try:
 			user = await c.get_users(user_id)
 		except FloodWait as e:
@@ -127,8 +125,7 @@ async def gban_task(c,m):
 		return await msg.edit_text(await c.tl(chat_id, "why_gban_owner"))
 	if await c.check_sudo(user.id):
 		return await msg.edit_text(await c.tl(chat_id, "why_gban_sudo"))
-	if duration:
-		until = create_time(duration)
+	until = create_time(duration) if duration else 0
 	await db.update_one({'user_id': user.id}, {"$set": {'reason': reason, 'until': until}}, upsert=True)
 	async for chat in chat_db.find():
 		if await c.check_admin(chat["chat_id"],user.id) or await c.check_approved(chat["chat_id"], user.id):
@@ -176,15 +173,14 @@ async def gban_watcher(c,m):
 	if not check:
 		return
 	until = check['until']
-	if until != 0:
-		if until > now:
-			if until-now < 40:
-				until = now+40
-			await c.ban_chat_member(chat_id, user_id, datetime.fromtimestamp(until))
-		else:
-			return await db.delete_one({'user_id': user_id})
-	else:
+	if until == 0:
 		await c.ban_chat_member(chat_id, user_id)
+	elif until > now:
+		if until-now < 40:
+			until = now+40
+		await c.ban_chat_member(chat_id, user_id, datetime.fromtimestamp(until))
+	else:
+		return await db.delete_one({'user_id': user_id})
 	text = (await c.tl(chat_id, "user_in_gban")).format(mention)
 	if until != 0:
 		text += (await c.tl(chat_id, "restrict_time_left")).format(time_left(until))
@@ -203,18 +199,17 @@ async def ungban_task(c,m):
 	if m.reply_to_message:
 		user = m.reply_to_message.from_user
 	else:
-		if len(text) > 1:
-			extracted = split_quotes(text[1])
-			if re.match(r"([0-9]{1,})", text[1].lower()):
-				user_id = text[1]
-			elif len(extracted) > 1:
-				user_id = extracted[0]
-			else:
-				user_id = text[1]
-			if user_id.isnumeric():
-				user_id = int(user_id)
-		else:
+		if len(text) <= 1:
 			return await msg.edit_text(await c.tl(chat_id, "need_user_id"))
+		extracted = split_quotes(text[1])
+		if re.match(r"([0-9]{1,})", text[1].lower()):
+			user_id = text[1]
+		elif len(extracted) > 1:
+			user_id = extracted[0]
+		else:
+			user_id = text[1]
+		if user_id.isnumeric():
+			user_id = int(user_id)
 		try:
 			user = await c.get_users(user_id)
 		except FloodWait as e:
@@ -253,7 +248,6 @@ async def gmute_task(c,m):
 	text = text.split(None, 1)
 	duration = ""
 	reason = ""
-	until = 0
 	msg = await m.reply_text("GMuting...")
 	if m.reply_to_message:
 		user = m.reply_to_message.from_user
@@ -270,24 +264,23 @@ async def gmute_task(c,m):
 			else:
 				reason = text[1]
 	else:
-		if len(text) > 1:
-			extracted = split_quotes(text[1])
-			if len(extracted) > 1:
-				user_id = extracted[0]
-				extracted1 = split_quotes(extracted[1])
-				if re.match(r"([0-9]{1,})([dhms])$", extracted[1].lower()):
-					duration = extracted[1].lower()
-				elif len(extracted1) > 1 and re.match(r"([0-9]{1,})([dhms])$", extracted1[0].lower()):
-					duration = extracted1[0].lower()
-					reason = extracted1[1].lower()
-				else:
-					reason = extracted[1].lower()
-			else:
-				user_id = text[1]
-			if user_id.isnumeric():
-				user_id = int(user_id)
-		else:
+		if len(text) <= 1:
 			return await msg.edit_text(await c.tl(chat_id, "need_user_id"))
+		extracted = split_quotes(text[1])
+		if len(extracted) > 1:
+			user_id = extracted[0]
+			extracted1 = split_quotes(extracted[1])
+			if re.match(r"([0-9]{1,})([dhms])$", extracted[1].lower()):
+				duration = extracted[1].lower()
+			elif len(extracted1) > 1 and re.match(r"([0-9]{1,})([dhms])$", extracted1[0].lower()):
+				duration = extracted1[0].lower()
+				reason = extracted1[1].lower()
+			else:
+				reason = extracted[1].lower()
+		else:
+			user_id = text[1]
+		if user_id.isnumeric():
+			user_id = int(user_id)
 		try:
 			user = await c.get_users(user_id)
 		except FloodWait as e:
@@ -298,8 +291,7 @@ async def gmute_task(c,m):
 		return await msg.edit_text(await c.tl(chat_id, "why_gmute_owner"))
 	if await c.check_sudo(user.id):
 		return await msg.edit_text(await c.tl(chat_id, "why_gmute_sudo"))
-	if duration:
-		until = create_time(duration)
+	until = create_time(duration) if duration else 0
 	await db.update_one({'user_id': user.id}, {"$set": {'reason': reason, 'until': until}}, upsert=True)
 	async for chat in chat_db.find():
 		if await c.check_admin(chat["chat_id"],user.id) or await c.check_approved(chat["chat_id"], user.id):
@@ -347,15 +339,14 @@ async def gmute_watcher(c,m):
 	if not check:
 		return
 	until = check['until']
-	if until != 0:
-		if until > now:
-			if until-now < 40:
-				until = now+40
-			await c.restrict_chat_member(chat_id, user_id, ChatPermissions(), datetime.fromtimestamp(until))
-		else:
-			return await db.delete_one({'user_id': user_id})
-	else:
+	if until == 0:
 		await c.restrict_chat_member(chat_id, user_id, ChatPermissions())
+	elif until > now:
+		if until-now < 40:
+			until = now+40
+		await c.restrict_chat_member(chat_id, user_id, ChatPermissions(), datetime.fromtimestamp(until))
+	else:
+		return await db.delete_one({'user_id': user_id})
 	text = (await c.tl(chat_id, "user_in_gmute")).format(mention)
 	if until != 0:
 		text += (await c.tl(chat_id, "restrict_time_left")).format(time_left(until))
@@ -374,18 +365,17 @@ async def ungmute_task(c,m):
 	if m.reply_to_message:
 		user = m.reply_to_message.from_user
 	else:
-		if len(text) > 1:
-			extracted = split_quotes(text[1])
-			if re.match(r"([0-9]{1,})", text[1].lower()):
-				user_id = text[1]
-			elif len(extracted) > 1:
-				user_id = extracted[0]
-			else:
-				user_id = text[1]
-			if user_id.isnumeric():
-				user_id = int(user_id)
-		else:
+		if len(text) <= 1:
 			return await msg.edit_text(await c.tl(chat_id, "need_user_id"))
+		extracted = split_quotes(text[1])
+		if re.match(r"([0-9]{1,})", text[1].lower()):
+			user_id = text[1]
+		elif len(extracted) > 1:
+			user_id = extracted[0]
+		else:
+			user_id = text[1]
+		if user_id.isnumeric():
+			user_id = int(user_id)
 		try:
 			user = await c.get_users(user_id)
 		except FloodWait as e:

@@ -17,14 +17,15 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, KeyboardB
 
 @Mayuri.on_message(filters.command("alive", PREFIX) | filters.command("on", PREFIX) & sudo_only)
 async def alive(c, m):
-	alive_text = "Bot services is running...\n"
-	alive_text += "•  ⚙️ PyroFork    : v{}\n".format(__version__)
-	alive_text += "•  🐍 Python         : v{}".format(sys.version.split(' ')[0])
+	alive_text = (
+		"Bot services is running...\n" + f"•  ⚙️ PyroFork    : v{__version__}\n"
+	)
+	alive_text += f"•  🐍 Python         : v{sys.version.split(' ')[0]}"
 	start = datetime.now()
 	msg = await m.reply_text(alive_text+"\n•  📶 Latency        : ⏳")
 	end = datetime.now()
 	latency = (end - start).microseconds / 1000
-	text = alive_text+"\n•  📶 Latency        : {}ms".format(latency)
+	text = f"{alive_text}\n•  📶 Latency        : {latency}ms"
 	await msg.edit(text)
 
 async def create_captcha(c, m, db, verify_id, user_id):
@@ -40,7 +41,7 @@ async def start_msg(c, m):
 	chat_id = m.chat.id
 	user_id = m.from_user.id
 	if m.chat.type == enums.ChatType.CHANNEL:
-		return await m.edit_text("chat_id: `{}`".format(m.chat.id))
+		return await m.edit_text(f"chat_id: `{m.chat.id}`")
 	if m.chat.type != enums.ChatType.PRIVATE:
 		return await m.reply_text(await c.tl(chat_id, "pm_me"))
 	t = m.text.split()
@@ -70,10 +71,9 @@ async def start_msg(c, m):
 				return await m.reply_text(text=(await c.tl(chat_id, 'select_captcha_type')), reply_markup=InlineKeyboardMarkup(button))
 			return await m.reply_text(await c.tl(chat_id, 'verify_id_not_found'))
 	keyboard = None
-	text = "hello!\n"
-	text += "This bot is under development."
-	text += "\nYou can contact my master [here](tg://user?id={})\n\n".format(c.config['bot']['OWNER'])
-	text += "Powered by [Pyrofork v{}](https://pyrofork.mayuri.my.id)".format(__version__)
+	text = "hello!\n" + "This bot is under development."
+	text += f"\nYou can contact my master [here](tg://user?id={c.config['bot']['OWNER']})\n\n"
+	text += f"Powered by [Pyrofork v{__version__}](https://pyrofork.mayuri.my.id)"
 	await m.reply_text(text,reply_markup=keyboard)
 
 async def _create_tunstile(_, __, query):
@@ -209,20 +209,20 @@ async def user_info(c,m):
 	if m.reply_to_message:
 		if m.reply_to_message.sender_chat:
 			return msg.edit_text(await c.tl(chat_id, "infouser_is_channel"))
-		user_id = m.reply_to_message.from_user.id
-	else:
-		if len(text) > 1:
-			extracted = split_quotes(text[1])
-			if re.match(r"([0-9]{1,})", text[1].lower()):
-				user_id = text[1]
-			elif len(extracted) > 1:
-				user_id = extracted[0]
-			else:
-				user_id = text[1]
 		else:
-			if m.sender_chat:
-				return await msg.edit_text(await c.tl(chat_id, "need_user_id"))
-			user_id = m.from_user.id
+			user_id = m.reply_to_message.from_user.id
+	elif len(text) > 1:
+		extracted = split_quotes(text[1])
+		if re.match(r"([0-9]{1,})", text[1].lower()):
+			user_id = text[1]
+		elif len(extracted) > 1:
+			user_id = extracted[0]
+		else:
+			user_id = text[1]
+	elif m.sender_chat:
+		return await msg.edit_text(await c.tl(chat_id, "need_user_id"))
+	else:
+		user_id = m.from_user.id
 	try:
 		user = await c.get_users(user_id)
 	except FloodWait as e:
@@ -236,10 +236,10 @@ async def user_info(c,m):
 	text += (await c.tl(chat_id, "infouser_name")).format(user.username)
 	text += (await c.tl(chat_id, "infouser_link")).format(user.id)
 	if user.photo:
-		target = "images/users/"+user.photo.big_file_id+".png"
+		target = f"images/users/{user.photo.big_file_id}.png"
 		await c.download_media(user.photo.big_file_id, file_name=target)
 		await msg.delete()
-		target = "mayuri/"+target
+		target = f"mayuri/{target}"
 		await m.reply_photo(photo=open(target, 'rb'), caption=text)
 		return os.remove(target)
 	await msg.edit_text(text)
@@ -256,25 +256,17 @@ async def set_language(c,m):
 	buttons = []
 	temp = []
 	check = await db.find_one({'chat_id': chat_id})
-	if check and "lang" in check:
-		curr_lang = check["lang"]
-	else:
-		curr_lang = 'id'
-	i = 1
-	for lang in list_all_lang():
-		t = importlib.import_module("mayuri.lang."+lang)
-		data = "setlang_{}".format(lang)
-		if lang == curr_lang:
-			text = f"* {t.lang_name}"
-		else:
-			text = t.lang_name
+	curr_lang = check["lang"] if check and "lang" in check else 'id'
+	for i, lang in enumerate(list_all_lang(), start=1):
+		t = importlib.import_module(f"mayuri.lang.{lang}")
+		data = f"setlang_{lang}"
+		text = f"* {t.lang_name}" if lang == curr_lang else t.lang_name
 		temp.append(InlineKeyboardButton(text=text, callback_data=data))
 		if i % 2 == 0:
 			buttons.append(temp)
 			temp = []
 		if i == len(list_all_lang()):
 			buttons.append(temp)
-		i += 1
 	await m.reply_text(text=(await c.tl(chat_id, "select_lang")), reply_markup=InlineKeyboardMarkup(buttons))
 
 async def set_lang_callback(_, __, query):

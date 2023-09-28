@@ -19,9 +19,9 @@ DISABLEABLE = []
 
 async def init_help(list_all_plugins):
 	for plugin in list_all_plugins:
-		imported_plugin = import_module("mayuri.plugins." + plugin)
+		imported_plugin = import_module(f"mayuri.plugins.{plugin}")
 		if hasattr(imported_plugin, "__PLUGIN__") and imported_plugin.__PLUGIN__:
-			if not imported_plugin.__PLUGIN__.lower() in HELP_COMMANDS:
+			if imported_plugin.__PLUGIN__.lower() not in HELP_COMMANDS:
 				HELP_COMMANDS[imported_plugin.__PLUGIN__.lower()] = imported_plugin
 			else:
 				raise Exception("Can't have two plugin with the same name! Please change one")
