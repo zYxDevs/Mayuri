@@ -360,5 +360,10 @@ Untuk melihat peraturan grup.
 	'rules_set': "Berhasil mengatur peraturan.",
 	'accept': "✅ Setuju",
 	'decline': "❌ Tolak",
+    'no_question': "Harap berikan pertanyaan untuk diajukan kepada AI.",
+    'find_answers_str': "Sedang mencari jawaban terbaik buat Anda..",
+    'dont_spam': "Tolong jangan melakukan spam, harap tunggu {tm} detik atau saya akan membanned Anda dari bot ini.",
+    'answers_too_long': "Jawaban untuk pertanyaan Anda telah melampaui batas teks Telegram, silahkan tekan tombol dibawah untuk melihat jawaban dari pertanyaan anda.",
+    'show_answer': "Lihat Jawaban",
 	'translation_not_found': "Terjemahaan untuk `{}` tidak ditemukan!",
 }

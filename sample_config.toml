@@ -47,3 +47,8 @@ TURNSTILE_URL = "https://appname.username.workers.dev"
 # Log channel for dumping sticker
 # for kang command
 LOG_STICKER=""
+
+[gemini]
+# Get API_KEY here: https://aistudio.google.com
+API_KEY=""
+MODEL="gemini-2.0-flash-001"

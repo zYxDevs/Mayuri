@@ -356,5 +356,10 @@ To view group rules.
 	'rules_set': "Group rules set.",
 	'accept': "✅ Accept",
 	'decline': "❌ Decline",
+    'no_question': "Please give a qestion to ask with AI.",
+    'find_answers_str': "Wait a moment looking for your answer..",
+    'dont_spam': "Don't spam please, please wait {tm} second or i will ban you from this bot.",
+    'answers_too_long': "Answer for your question has exceeded TG text limit, click the button below to view the result.",
+    'show_answer': "See Answer",
 	'translation_not_found': "Translation `{}` could not be found!",
 }
