@@ -52,3 +52,10 @@ LOG_STICKER=""
 # Get API_KEY here: https://aistudio.google.com
 API_KEY=""
 MODEL="gemini-2.0-flash-001"
+
+[gpt]
+# You can use GitHub PAT (free)
+# or Azure production key (pay-as-go)
+API_KEY=""
+# You can check available models here: https://github.com/marketplace?model_family=OpenAI&type=models
+MODEL="gpt-4o-mini"
